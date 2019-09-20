@@ -1,20 +1,17 @@
-#FROM adoptopenjdk/openjdk12:alpine-jre
 FROM openjdk:12-alpine
 RUN apk add curl &&\
     mkdir /data
 
+COPY /docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
 EXPOSE 25565 25565
+
 VOLUME ["/data"]
-
-
-ENTRYPOINT ["/start"]
-
 ENV VERSION=1.14.4\
     FORCE_UPDATE=false\
     EULA=false\
     JAVA_XMX=1024M\
     JAVA_XMS=1024M\
-    JAVA_OPTIONS=
+    JAVA_OPTIONS="-XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:MaxGCPauseMillis=100 -XX:+DisableExplicitGC -XX:TargetSurvivorRatio=90 -XX:G1NewSizePercent=50 -XX:G1MaxNewSizePercent=80 -XX:G1MixedGCLiveThresholdPercent=35 -XX:+AlwaysPreTouch -XX:+ParallelRefProcEnabled -Dusing.aikars.flags=mcflags.emc.gs"
 
-COPY /start* /
-RUN chmod +x /start*
+ENTRYPOINT ["/docker-entrypoint.sh"]
