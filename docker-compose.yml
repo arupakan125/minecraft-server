@@ -17,6 +17,7 @@ services:
     restart: always
     stdin_open: true
     tty: true
+    stop_signal: SIGINT
   db:
     image: mysql:5.7
     environment:

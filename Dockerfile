@@ -6,6 +6,8 @@ COPY /docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 EXPOSE 25565 25565
 
+STOPSIGNAL SIGINT
+
 VOLUME ["/data"]
 ENV VERSION=1.14.4\
     FORCE_UPDATE=false\
