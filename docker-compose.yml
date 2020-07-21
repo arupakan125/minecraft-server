@@ -3,6 +3,7 @@ services:
   minecraft-server:
     image: arupakan125/minecraft-server
     environment:
+      - "VERSION=1.16.1"
       - "EULA=true"
       - "FORCE_UPDATE=false"
       - "JAVA_XMX=1G"
