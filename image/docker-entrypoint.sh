@@ -20,8 +20,14 @@ fi
 if [ ! -e ./${SERVER_FILE} ] || "${FORCE_UPDATE}"
 then
     # サーバのファイルが存在しないか、FORCE_UPDATEがtrueの時　
+    # reference https://docs.papermc.io/misc/downloads-api
     echo Downloading ${SERVER_FILE}
-    curl -s -o ${SERVER_FILE} https://papermc.io/api/v1/paper/${VERSION}/latest/download
+    PROJECT="paper"
+    LATEST_BUILD=$(curl -s https://api.papermc.io/v2/projects/${PROJECT}/versions/${VERSION}/builds | \
+    jq -r '.builds | map(select(.channel == "default") | .build) | .[-1]')
+    JAR_NAME=${PROJECT}-${VERSION}-${LATEST_BUILD}.jar
+    PAPERMC_URL="https://api.papermc.io/v2/projects/${PROJECT}/versions/${VERSION}/builds/${LATEST_BUILD}/downloads/${JAR_NAME}"
+    curl -o ${SERVER_FILE} $PAPERMC_URL
     echo Downloaded.
 else
     # サーバのファイルが存在、かつFORCE_UPDATEがfalseの時

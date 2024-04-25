@@ -4,7 +4,7 @@ services:
     build:
       context: "./image"
     environment:
-      - "VERSION=1.16.1"
+      - "VERSION=1.20.4"
       - "EULA=true"
       - "FORCE_UPDATE=false"
       - "JAVA_XMX=1G"
