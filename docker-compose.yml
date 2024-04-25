@@ -1,7 +1,8 @@
 version: "3"
 services:
   minecraft-server:
-    image: arupakan125/minecraft-server
+    build:
+      context: "./image"
     environment:
       - "VERSION=1.16.1"
       - "EULA=true"
