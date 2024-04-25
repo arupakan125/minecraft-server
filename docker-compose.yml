@@ -20,9 +20,3 @@ services:
     stdin_open: true
     tty: true
     stop_signal: SIGINT
-  db:
-    image: mysql:5.7
-    environment:
-      - "MYSQL_ROOT_PASSWORD=abnfouaerofa"
-    volumes:
-      - "./db:/var/lib/mysql"
