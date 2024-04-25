@@ -1,5 +1,5 @@
-FROM amazoncorretto:22-jdk
-RUN yum install jq udev -y && mkdir /data
+FROM amazoncorretto:21-alpine-jdk
+RUN apk add curl jq udev && mkdir /data
 
 COPY /docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
